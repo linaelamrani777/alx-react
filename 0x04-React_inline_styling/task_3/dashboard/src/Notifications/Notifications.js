@@ -1,28 +1,10 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
->>>>>>> 7545497cd337e31a52102d2bfec14376fa39c7a9
 import PropTypes from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 
-<<<<<<< HEAD
-class NotificationItem extends React.PureComponent {
-  render() {
-    const { type, value, html, markAsRead, id } = this.props;
-    return (
-      <>
-        {type && value ? (
-          <li onClick={() => markAsRead(id)} data-notification-type={type}>
-            {value}
-          </li>
-        ) : null}
-        {html ? <li onClick={() => markAsRead(id)} data-urgent dangerouslySetInnerHTML={{ __html: html }}></li> : null}
-      </>
-=======
 class Notifications extends Component {
   constructor(props) {
     super(props);
@@ -76,29 +58,10 @@ class Notifications extends Component {
           </div>
         ) : null}
       </React.Fragment>
->>>>>>> 7545497cd337e31a52102d2bfec14376fa39c7a9
     );
   }
 }
 
-<<<<<<< HEAD
-NotificationItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  __html: PropTypes.shape({
-    html: PropTypes.string,
-  }),
-  markAsRead: PropTypes.func,
-  id: PropTypes.number,
-};
-
-NotificationItem.defaultProps = {
-  type: "default",
-  markAsRead: () => {
-    console.log("empty func");
-  },
-  id: 0,
-=======
 const styles = StyleSheet.create({
   Notifications: {
     padding: "1em",
@@ -126,7 +89,6 @@ Notifications.propTypes = {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
->>>>>>> 7545497cd337e31a52102d2bfec14376fa39c7a9
 };
 
-export default NotificationItem;
+export default Notifications;

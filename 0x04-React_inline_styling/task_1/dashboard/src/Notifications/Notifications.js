@@ -1,49 +1,38 @@
 import React from "react";
-import "./Notifications.css";
-import closeIcon from "../assets/close-icon.png";
-import { getLatestNotification } from "../utils/utils";
-import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 
-function Notifications({ displayDrawer }) {
-  return (
-    <React.Fragment>
-      {displayDrawer ? (
-        <div className="'flex-area'">
-          <div className="menuItem">
-            <p>Your notifications</p>
-          </div>
-          <div className="Notifications">
-            <button
-              style={{ color: "#3a3a3a", fontWeight: "bold", background: "none", border: "none", fontSize: "10px", position: "absolute", right: "2px", top: "2px", cursor: "pointer" }}
-              aria-label="Close"
-              onClick={console.log("Close button has been clicked")}
-            >
-              <img src={closeIcon} alt="closeIcon" width="10px" />
-            </button>
-            <p>Here is the list of notifications</p>
-            <ul>
-              <NotificationItem type="default" value="New course available" />
-              <NotificationItem type="urgent" value="New resume available" />
-              <NotificationItem type="urgent" html={getLatestNotification()} />
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <div className="menuItem">
-          <p>Your notifications</p>
-        </div>
-      )}
-    </React.Fragment>
-  );
+class NotificationItem extends React.PureComponent {
+  render() {
+    const { type, value, html, markAsRead, id } = this.props;
+    return (
+      <>
+        {type && value ? (
+          <li onClick={() => markAsRead(id)} data-notification-type={type}>
+            {value}
+          </li>
+        ) : null}
+        {html ? <li onClick={() => markAsRead(id)} data-urgent dangerouslySetInnerHTML={{ __html: html }}></li> : null}
+      </>
+    );
+  }
 }
 
-Notifications.propTypes = {
-  displayDrawer: PropTypes.bool,
+NotificationItem.propTypes = {
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  __html: PropTypes.shape({
+    html: PropTypes.string,
+  }),
+  markAsRead: PropTypes.func,
+  id: PropTypes.number,
 };
 
-Notifications.defaultProps = {
-  displayDrawer: false,
+NotificationItem.defaultProps = {
+  type: "default",
+  markAsRead: () => {
+    console.log("empty func");
+  },
+  id: 0,
 };
 
-export default Notifications;
+export default NotificationItem;

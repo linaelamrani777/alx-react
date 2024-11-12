@@ -1,15 +1,23 @@
-import React from "react";
-import Header from "./Header";
 import { shallow } from "enzyme";
+import React from "react";
+import Login from "./Login";
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe("Header", () => {
-  it("render without crashing", () => {
-    const wrapper = shallow(<Header />);
+  it("should render without crashing", () => {
+    const wrapper = shallow(<Login />);
     expect(wrapper.exists()).toEqual(true);
   });
-  it("should render a h1", () => {
-    const wrapper = shallow(<Header />);
-    expect(wrapper.exists("img")).toEqual(true);
-    expect(wrapper.containsMatchingElement(<h1>School dashboard</h1>)).toEqual(true);
+  it("should have 2 input tags and 2 label tags", () => {
+    const wrapper = shallow(<Login />);
+    expect(wrapper.find("label")).toHaveLength(2);
+    expect(wrapper.find("input")).toHaveLength(2);
   });
 });
